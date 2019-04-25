@@ -1,0 +1,41 @@
+swagger: "2.0"
+info:
+  description: A simple OpenAPIV2 Demonstration
+  version: "1.0.0"
+  title: OpenAPI REST 
+
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+schemes:
+  - http
+#  - https
+
+basePath: "/api"
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      operationId: health.health
+      summary: Health Check
+      responses:
+        '200':
+          description: Status message for current health
+
+  /numbers:
+    get:
+      tags: [Numbers]
+      operationId: numbers_store.read
+      summary: "The stored numbers"
+      description: "Get all the stored numbers"
+      responses:
+        '200':
+          description: "Successful read numbers operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                number:
+                  type: "integer"
