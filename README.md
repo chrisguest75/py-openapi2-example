@@ -27,6 +27,10 @@ curl http://0.0.0.0:8080/api/ui
 curl http://0.0.0.0:8080/api/health
 curl http://0.0.0.0:8080/api/numbers
 
+curl -X POST http://0.0.0.0:8080/api/numbers -d '{"number":241334}'  -H 'Content-Type: application/json'
+
+
+
 ```
 
 # Configure Remote Debugging 
