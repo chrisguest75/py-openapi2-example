@@ -8,9 +8,7 @@ consumes:
   - "application/json"
 produces:
   - "application/json"
-schemes:
-  - http
-#  - https
+#schemes: [http, https]
 
 basePath: "/api"
 
@@ -39,3 +37,25 @@ paths:
               properties:
                 number:
                   type: "integer"
+
+    post:
+      tags: [Numbers]
+      operationId: numbers_store.add
+      summary: "Add a number"
+      description: "Store a number"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: numbers
+          description: The number to add
+          schema:
+            type: object
+            required:
+              - number
+            properties:
+              number:
+                type: integer
+      responses:
+        201:
+          description: Created
