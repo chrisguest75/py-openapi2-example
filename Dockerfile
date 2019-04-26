@@ -20,6 +20,11 @@ COPY ./service.py /workbench/service.py
 COPY ./health.py /workbench/health.py
 COPY ./numbers_store.py /workbench/numbers_store.py
 COPY ./openapi/service_api.yaml /workbench/openapi/service_api.yaml
+COPY ./logging_config.yaml /workbench/logging_config.yaml
+
+# set to no debugger.
+ENV DEBUGGER=False
+ENV WAIT=False
 
 USER appuser
 EXPOSE 8080

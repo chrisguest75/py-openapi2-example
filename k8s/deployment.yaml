@@ -1,0 +1,46 @@
+# yaml resource file for deployment from skaffold
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "skaffolddebug"
+  labels: 
+    name: "skaffolddebug"
+        
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "skaffoldtest"
+  namespace: skaffolddebug  
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: skaffoldtest
+        track: stable
+        version: 0.1.0
+    spec:
+      containers:
+        - name: skaffoldtest
+          image: eu.gcr.io/tipinfra-01/skaffold/openapiv2-example
+          imagePullPolicy: Always
+          ports:
+            - name: debug
+              containerPort: 5678          
+            - name: api
+              containerPort: 8080
+          env:
+            - name: DEBUGGER
+              value: "True"
+            - name: WAIT
+              value: "False"
+
+          resources:
+            limits:
+              cpu: "1"            
+            requests:
+              cpu: "10m"
+
+

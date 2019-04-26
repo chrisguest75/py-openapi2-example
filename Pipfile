@@ -9,6 +9,8 @@ flake8 = "*"
 
 [packages]
 connexion = {extras = ["swagger-ui"],version = "*"}
+ptvsd = "*"
+python-json-logger = "*"
 
 [requires]
 python_version = "3.7"
