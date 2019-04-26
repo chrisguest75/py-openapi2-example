@@ -6,7 +6,6 @@ import logging
 import logging.config
 import os
 import sys
-import time
 import traceback
 
 import yaml
@@ -18,13 +17,14 @@ import connexion
 app = connexion.FlaskApp(__name__, specification_dir='openapi/')
 app.add_api('service_api.yaml')
 
+
 def log_uncaught_exceptions(exc_type, exc_value, exc_traceback):
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
         return
 
     logging.critical("Exception", exc_info=(exc_type, exc_value, exc_traceback))
-    logging.critical('Unhandled Exception {0}: {1}'.format(exc_type, exc_value), extra={'exception':''.join(traceback.format_tb(exc_traceback))})
+    logging.critical('Unhandled Exception {0}: {1}'.format(exc_type, exc_value), extra={'exception': ''.join(traceback.format_tb(exc_traceback))})
 
 
 def str2bool(v):
@@ -33,7 +33,7 @@ def str2bool(v):
 
 if __name__ == "__main__":
     print(f"Enter {__name__}")
-    with io.open("./logging_config.yaml") as f:         
+    with io.open("./logging_config.yaml") as f:
         logging_config = yaml.load(f)
 
     logging.config.dictConfig(logging_config)
@@ -69,6 +69,11 @@ if __name__ == "__main__":
             ptvsd.wait_for_attach()
             breakpoint()
 
-    app.run(port=8080)
+    server_port = os.environ.get('PORT')
+    if server_port is None:
+        logger.error(f"PORT environment variable not set")
+        exit(1)
+
+    app.run(port=server_port, host='0.0.0.0')
 
     exit(0)

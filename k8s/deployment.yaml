@@ -36,6 +36,8 @@ spec:
               value: "True"
             - name: WAIT
               value: "False"
+            - name: PORT
+              value: "8080"
 
           resources:
             limits:
